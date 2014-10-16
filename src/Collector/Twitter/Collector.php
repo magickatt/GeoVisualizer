@@ -1,10 +1,10 @@
 <?php
 
-namespace GeoVisualizer\Collector\GoogleMaps;
+namespace GeoVisualizer\Collector\Twitter;
 
 use GeoVisualizer\Collector\CollectorAbstract;
 
 class Collector extends CollectorAbstract
 {
-    protected $name = 'Google Maps';
+    protected $name = 'Twitter';
 }

@@ -14,7 +14,7 @@ class RegistryFactory implements FactoryInterface
     {
         $registry = new Registry();
 
-        $registry->addCollector(new GoogleMaps\Collector());
+        $registry->addCollector(new Twitter\Collector());
 
         return $registry;
     }
