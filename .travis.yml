@@ -1,4 +1,7 @@
 language: php
 php:
   - 5.5
-#phpunit
+phpunit
+
+after_script:
+  - php vendor/bin/coveralls
