@@ -3,6 +3,7 @@
 namespace GeoVisualizer\Collector;
 
 use GeoVisualizer\Configuration;
+use Zend\Stdlib\ParametersInterface;
 
 abstract class CollectorAbstract implements CollectorInterface
 {
@@ -24,6 +25,8 @@ abstract class CollectorAbstract implements CollectorInterface
     {
         return $this->name;
     }
+
+    abstract public function fetchGeoPoints(ParametersInterface $parameters);
 
     /**
      * @link http://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string

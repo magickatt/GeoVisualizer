@@ -2,6 +2,7 @@
 
 namespace GeoVisualizer\Visualizer;
 
+use DI\Container;
 use GeoVisualizer\FactoryInterface;
 
 class RegistryFactory implements FactoryInterface
@@ -10,7 +11,7 @@ class RegistryFactory implements FactoryInterface
      * Create a collector registry, then add each collector
      * @return Registry
      */
-    public function create()
+    public function create(Container $container)
     {
         $registry = new Registry();
 

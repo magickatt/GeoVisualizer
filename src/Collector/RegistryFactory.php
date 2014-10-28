@@ -10,6 +10,7 @@ class RegistryFactory implements FactoryInterface
     /**
      * Create a collector registry, then add each collector
      * @todo Refactor so it does not use the DI container like a service locator
+     * @param Container $container
      * @return Registry
      */
     public function create(Container $container)

@@ -27,10 +27,12 @@ $application->post('/collector/:collectorName', function ($collectorSlug) use ($
     /*
      * Do something
      */
+    $parameters = new \Zend\Stdlib\Parameters(array('search' => 'hats'));
+    $geoPoints = $collector->fetchGeoPoints($parameters);
 
     $visualizerRegistryFactory = new \GeoVisualizer\Visualizer\RegistryFactory();
-    $visualizerRegistry = $visualizerRegistryFactory->create();
-    echo $application->render('visualizers.php', array('visualizers' => $visualizerRegistry->getAllNames()));
+    $visualizerRegistry = $visualizerRegistryFactory->create($container);
+    echo $application->render('visualizers.php', array('visualizers' => $visualizerRegistry->getAllNames(), 'geoPoints' => $geoPoints));
 });
 
 $application->get('/visualizer/:visualizerName', function ($visualizerSlug) use ($application) {

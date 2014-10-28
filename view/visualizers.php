@@ -11,6 +11,13 @@
 </head>
 <body>
     <h1>Geographical Visualizer</h1>
+    <h2>Collector</h2>
+    <p>Collected the following:</p>
+    <ul>
+        <?php foreach ($geoPoints as $geoPoint): ?>
+            <li>Hat</li>
+        <?php endforeach; ?>
+    </ul>
     <h2>Visualizer</h2>
     <p>Select a method to visualize the geographical data previously collected</p>
     <ul>
