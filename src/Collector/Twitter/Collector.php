@@ -2,18 +2,22 @@
 
 namespace GeoVisualizer\Collector\Twitter;
 
+use DI\Container;
 use GeoVisualizer\Collector\CollectorAbstract;
-use TwitterOAuth\Api;
 
 class Collector extends CollectorAbstract
 {
     protected $name = 'Twitter';
 
-    /** @var Api */
+    /** @var \TwitterOAuth\Api */
     private $api;
 
-    public function __construct(Api $api)
+    public function __construct(Container $container)
     {
-        $this->api = $api;
+        /** @var \GeoVisualizer\Collector\Twitter\ApiFactory $apiFactory */
+        $apiFactory = $container->get('\GeoVisualizer\Collector\Twitter\ApiFactory');
+
+        /** @var \TwitterOAuth\Api $api */
+        $this->api = $apiFactory->create($container);
     }
 }

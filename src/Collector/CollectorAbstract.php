@@ -2,6 +2,8 @@
 
 namespace GeoVisualizer\Collector;
 
+use GeoVisualizer\Configuration;
+
 abstract class CollectorAbstract implements CollectorInterface
 {
     protected $name;
@@ -14,6 +16,11 @@ abstract class CollectorAbstract implements CollectorInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    private function getConfiguration()
+    {
+        return new Configuration();
     }
 
     /**
