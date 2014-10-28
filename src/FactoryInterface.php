@@ -2,7 +2,9 @@
 
 namespace GeoVisualizer;
 
+use DI\Container;
+
 interface FactoryInterface
 {
-    public function create();
+    public function create(Container $container);
 }

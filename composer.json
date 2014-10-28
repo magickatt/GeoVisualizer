@@ -1,6 +1,8 @@
 {
     "require": {
-        "slim/slim": "2.*"
+        "slim/slim": "2.*",
+        "mnapoli/php-di": "~4.0",
+        "ruudk/twitter-oauth": "dev-master"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.0",

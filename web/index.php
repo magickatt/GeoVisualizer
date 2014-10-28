@@ -5,9 +5,13 @@ require __DIR__ . '/../vendor/autoload.php';
 $application = new \Slim\Slim();
 $application->view->setTemplatesDirectory(__DIR__ . '/../view/');
 
-$application->get('/', function () use ($application) {
+$builder = new \DI\ContainerBuilder();
+$container = $builder->build();
+//$container->useAutowiring(true);
+
+$application->get('/', function () use ($application, $container) {
     $collectorRegistryFactory = new \GeoVisualizer\Collector\RegistryFactory();
-    $collectorRegistry = $collectorRegistryFactory->create();
+    $collectorRegistry = $collectorRegistryFactory->create($container);
     echo $application->render('collectors.php', array('collectors' => $collectorRegistry->getAllNames()));
 });
 
@@ -15,9 +19,9 @@ $application->get('/collector/:collectorName', function ($collectorSlug) use ($a
     echo $application->render('collector/' . (string)$collectorSlug . '.php');
 });
 
-$application->post('/collector/:collectorName', function ($collectorSlug) use ($application) {
+$application->post('/collector/:collectorName', function ($collectorSlug) use ($application, $container) {
     $collectorRegistryFactory = new \GeoVisualizer\Collector\RegistryFactory();
-    $collectorRegistry = $collectorRegistryFactory->create();
+    $collectorRegistry = $collectorRegistryFactory->create($container);
     $collector = $collectorRegistry->getWithSlug($collectorSlug);
 
     /*
