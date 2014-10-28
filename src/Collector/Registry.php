@@ -6,8 +6,12 @@ use GeoVisualizer\RegistryInterface;
 
 class Registry implements RegistryInterface
 {
+    /** @var CollectorInterface[] */
     private $collectors = array();
 
+    /**
+     * @param CollectorInterface $collector
+     */
     public function addCollector(CollectorInterface $collector)
     {
         $this->collectors[$collector->getSlug()] = $collector;
@@ -24,11 +28,17 @@ class Registry implements RegistryInterface
         }
     }
 
+    /**
+     * @return CollectorInterface[]
+     */
     public function getAll()
     {
         return $this->collectors;
     }
 
+    /**
+     * @return string[]
+     */
     public function getAllNames()
     {
         $names = array();

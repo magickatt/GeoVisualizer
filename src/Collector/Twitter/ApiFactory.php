@@ -8,6 +8,11 @@ use TwitterOAuth\Api;
 
 class ApiFactory implements FactoryInterface
 {
+    /**
+     * @param Container $container
+     * @return Api
+     * @throws \DI\NotFoundException
+     */
     public function create(Container $container)
     {
         /** @var Configuration $configuration */

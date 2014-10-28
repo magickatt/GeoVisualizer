@@ -9,6 +9,9 @@ abstract class ConfigurationAbstract
     /** @var string */
     protected $file;
 
+    /**
+     * @return array|null
+     */
     public function parseConfiguration()
     {
         $iniReader = $this->openFile($this->file);
@@ -18,6 +21,10 @@ abstract class ConfigurationAbstract
         }
     }
 
+    /**
+     * @param IniReader $iniReader
+     * @return array|null
+     */
     abstract protected function getSpecificConfiguration(IniReader $iniReader);
 
     /**
@@ -32,6 +39,9 @@ abstract class ConfigurationAbstract
         }
     }
 
+    /**
+     * @return string
+     */
     private function getDirectory()
     {
         return __DIR__ . '/../config/';

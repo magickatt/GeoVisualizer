@@ -7,6 +7,7 @@ use GeoVisualizer\ConfigurationAbstract;
 
 class Configuration extends ConfigurationAbstract
 {
+    /** @var string */
     protected $file = 'collector/twitter.ini';
 
     const CONSUMER_KEY = 'consumer_key';
@@ -17,6 +18,10 @@ class Configuration extends ConfigurationAbstract
 
     const OAUTH_TOKEN_SECRET = 'oauth_token_secret';
 
+    /**
+     * @param IniReader $iniReader
+     * @return array
+     */
     protected function getSpecificConfiguration(IniReader $iniReader)
     {
         return array(

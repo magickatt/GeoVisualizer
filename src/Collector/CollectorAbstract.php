@@ -6,21 +6,23 @@ use GeoVisualizer\Configuration;
 
 abstract class CollectorAbstract implements CollectorInterface
 {
+    /** @var string */
     protected $name;
 
+    /**
+     * @return string
+     */
     public function getSlug()
     {
         return $this->slugify($this->getName());
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
-    }
-
-    private function getConfiguration()
-    {
-        return new Configuration();
     }
 
     /**
