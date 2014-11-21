@@ -27,8 +27,8 @@ class Configuration extends ConfigurationAbstract
         return array(
             self::CONSUMER_KEY => $iniReader->v(self::CONSUMER_KEY),
             self::CONSUMER_SECRET => $iniReader->v(self::CONSUMER_SECRET),
-            self::OAUTH_TOKEN => $iniReader->v(self::OAUTH_TOKEN),
-            self::OAUTH_TOKEN_SECRET => $iniReader->v(self::OAUTH_TOKEN_SECRET),
+            self::OAUTH_TOKEN => urlencode($iniReader->v(self::OAUTH_TOKEN)),
+            self::OAUTH_TOKEN_SECRET => urlencode($iniReader->v(self::OAUTH_TOKEN_SECRET)),
         );
     }
 }
