@@ -13,6 +13,11 @@ class Collector_Twitter_ConfigurationTest extends PHPUnit_Framework_TestCase
 
     public function testGetSpecificConfiguration()
     {
+        /*
+         * NOTE TO SELF
+         * Need to use reflection to override static method default behaviour
+         */
+
         $this->markTestIncomplete();
 
         $iniReader = $this->getMockBuilder('fkooman\Ini\IniReader')
@@ -26,7 +31,7 @@ class Collector_Twitter_ConfigurationTest extends PHPUnit_Framework_TestCase
             self::OAUTH_TOKEN_SECRET => 'testPauthTokenSecret',
         );
 
-        $array = $this->configuration->getSpecificConfiguration($iniReader);
+        $array = $this->configuration->parseConfiguration();
 
         $this->assertArrayHasKey(Configuration::CONSUMER_KEY, $array);
         $this->assertArrayHasKey(Configuration::CONSUMER_SECRET, $array);

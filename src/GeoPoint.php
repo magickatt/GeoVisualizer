@@ -16,4 +16,9 @@ class GeoPoint
         $this->longitude = $longitude;
         $this->description = $description;
     }
+
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
 }
