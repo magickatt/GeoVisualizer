@@ -9,13 +9,20 @@ class GeoPointTest extends PHPUnit_Framework_TestCase
 
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testCasting()
     {
-        $geoPoint = new GeoPoint('1', "2", 'One two');
+        $geoPoint = new GeoPoint('1', "2", 12);
 
-        $this->assertInternalType('integer', $geoPoint->getLatitude());
+        $this->assertInternalType('float', $geoPoint->getLatitude());
+        $this->assertInternalType('float', $geoPoint->getLongitude());
+        $this->assertInternalType('string', $geoPoint->getDescription());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testNonNumericCoordinates()
+    {
+        $geoPoint = new GeoPoint('one', 'two', 'One two');
     }
 }
