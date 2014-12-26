@@ -15,7 +15,7 @@ class RegistryFactory implements FactoryInterface
     {
         $registry = new Registry();
 
-        $registry->addVisualizer(new GoogleMaps\Visualizer());
+        $registry->addVisualizer(new GoogleMaps\Visualizer($container));
 
         return $registry;
     }

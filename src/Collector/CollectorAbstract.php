@@ -26,7 +26,7 @@ abstract class CollectorAbstract implements CollectorInterface
         return $this->name;
     }
 
-    abstract public function fetchGeoPoints(ParametersInterface $parameters);
+    abstract public function fetchGeoPoints(ParametersInterface $parameters, $geoPoints = array());
 
     /**
      * @link http://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string

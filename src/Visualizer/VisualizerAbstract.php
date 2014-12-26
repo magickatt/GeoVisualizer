@@ -4,7 +4,11 @@ namespace GeoVisualizer\Visualizer;
 
 abstract class VisualizerAbstract implements VisualizerInterface
 {
-    protected $name;
+    /** @var string */
+    protected $name = '';
+
+    /** @var [\GeoVisualizer\GeoPoint] */
+    protected $geoPoints = array();
 
     public function getSlug()
     {
@@ -16,7 +20,16 @@ abstract class VisualizerAbstract implements VisualizerInterface
         return $this->name;
     }
 
-    abstract public function consume(array $geoPoints);
+    public function consume(array $geoPoints)
+    {
+        $this->geoPoints = $geoPoints;
+    }
+
+    abstract public function generateHead();
+
+    abstract public function generateBody();
+
+    abstract public function generateParameters();
 
     /**
      * @link http://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string

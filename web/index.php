@@ -52,7 +52,12 @@ $application->get('/visualizer/:visualizerName', function ($visualizerSlug) use 
 
     $metadata = $visualizer->consume($geoPoints);
 
-    echo $application->render('visualizer/' . (string)$visualizerSlug . '.php', array('geoPoints' => $geoPoints, 'metadata' => $metadata));
+    echo $application->render('visualizer/' . (string)$visualizerSlug . '.php', array(
+        'geoPoints' => $geoPoints,
+        'head' => $visualizer->generateHead(),
+        'body' => $visualizer->generateBody(),
+        'parameters' => $visualizer->generateParameters(),
+    ));
 });
 
 $application->run();

@@ -15,6 +15,11 @@ class Collector extends CollectorAbstract
     /** @var \TwitterOAuth\Api */
     private $api;
 
+    private $numberOfTweets = 20;
+
+    /** @var integer Probability that a tweet in a given batch will be geotagged */
+    private $geotaggedTweetProbabilityMultiplier = 25;
+
     /**
      * @param Container $container
      * @throws \DI\NotFoundException
@@ -28,18 +33,16 @@ class Collector extends CollectorAbstract
         $this->api = $apiFactory->create($container);
     }
 
-    public function fetchGeoPoints(ParametersInterface $parameters)
+    public function fetchGeoPoints(ParametersInterface $parameters, $geoPoints = array())
     {
         $response = $this->api->get($this->buildSearchUrl(), $this->filterParameters($parameters));
 
-        $geoPoints = array();
         foreach ($response->statuses as $status) {
 
+            // Majority of tweets do not have geotags, therefore we need to discard most of them
             if (is_null($status->geo)) {
                 continue;
             }
-
-            var_dump($status->geo->coordinates);
 
             $geoPoint = new GeoPoint(
                 $status->geo->coordinates[0],
@@ -47,15 +50,14 @@ class Collector extends CollectorAbstract
                 $status->text
             );
 
-            var_dump($geoPoint);
-
             $geoPoints[] = $geoPoint;
+            $parameters->set('lastId', $status->id);
 
         }
 
-        echo '<pre>';
-        //var_dump($response);
-        echo '</pre>';
+        if (count($geoPoints) < $this->numberOfTweets) {
+            $geoPoints = $this->fetchGeoPoints($parameters, $geoPoints);
+        }
 
         return $geoPoints;
     }
@@ -73,7 +75,9 @@ class Collector extends CollectorAbstract
     private function filterParameters(ParametersInterface $parameters)
     {
         return array(
-            'q' => $parameters->get('search')
+            'q' => $parameters->get('search'),
+            'count' => $this->numberOfTweets * $this->geotaggedTweetProbabilityMultiplier,
+            'max_id' => $parameters->get('lastId') - 1,
         );
     }
 }
