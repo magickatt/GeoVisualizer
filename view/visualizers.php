@@ -12,17 +12,21 @@
 <body>
     <h1>Geographical Visualizer</h1>
     <h2>Collector</h2>
+    <?php if (empty($geoPoints)): ?>
+        <p>No geographical data found this time, <a href="#" onclick='location.reload(true); return false;'>search again?</a></p>
+    <?php else: ?>
     <p>Collected the following:</p>
     <ul>
         <?php foreach ($geoPoints as $geoPoint): ?>
-            <li>Hat</li>
+            <li><?php echo $geoPoint->getDescription(); ?></li>
         <?php endforeach; ?>
     </ul>
+    <?php endif; ?>
     <h2>Visualizer</h2>
     <p>Select a method to visualize the geographical data previously collected</p>
     <ul>
         <?php foreach ($visualizers as $slug => $visualizerName): ?>
-        <li><a href="visualizer/<?php echo $slug; ?>"><?php echo $visualizerName; ?></a></li>
+        <li><a href="/GeoVisualizer/web/visualizer/<?php echo $slug; ?>"><?php echo $visualizerName; ?></a></li>
         <?php endforeach; ?>
     </ul>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

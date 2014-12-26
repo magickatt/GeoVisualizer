@@ -8,4 +8,6 @@ interface VisualizerInterface
 
     public function getName();
 
+    public function consume(array $geoPoints);
+
 }

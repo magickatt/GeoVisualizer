@@ -3,7 +3,8 @@
         "slim/slim": "2.*",
         "mnapoli/php-di": "~4.0",
         "fkooman/ini": "dev-master",
-        "ruudk/twitter-oauth": "dev-master"
+        "ruudk/twitter-oauth": "dev-master",
+        "aura/session": "2.0.0-beta2"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.0",

@@ -4,6 +4,7 @@ namespace GeoVisualizer\Collector\Twitter;
 
 use DI\Container;
 use GeoVisualizer\Collector\CollectorAbstract;
+use GeoVisualizer\GeoPoint;
 use Zend\Stdlib\ParametersInterface;
 
 class Collector extends CollectorAbstract
@@ -29,10 +30,34 @@ class Collector extends CollectorAbstract
 
     public function fetchGeoPoints(ParametersInterface $parameters)
     {
-        $t = $this->api->get($this->buildSearchUrl(), $this->filterParameters($parameters));
-        var_dump($t);
+        $response = $this->api->get($this->buildSearchUrl(), $this->filterParameters($parameters));
 
-        return array();
+        $geoPoints = array();
+        foreach ($response->statuses as $status) {
+
+            if (is_null($status->geo)) {
+                continue;
+            }
+
+            var_dump($status->geo->coordinates);
+
+            $geoPoint = new GeoPoint(
+                $status->geo->coordinates[0],
+                $status->geo->coordinates[1],
+                $status->text
+            );
+
+            var_dump($geoPoint);
+
+            $geoPoints[] = $geoPoint;
+
+        }
+
+        echo '<pre>';
+        //var_dump($response);
+        echo '</pre>';
+
+        return $geoPoints;
     }
 
     private function buildSearchUrl()

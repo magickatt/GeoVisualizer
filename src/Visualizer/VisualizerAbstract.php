@@ -16,6 +16,8 @@ abstract class VisualizerAbstract implements VisualizerInterface
         return $this->name;
     }
 
+    abstract public function consume(array $geoPoints);
+
     /**
      * @link http://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string
      * @param $text

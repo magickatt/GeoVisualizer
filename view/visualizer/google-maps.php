@@ -12,7 +12,16 @@
 <body>
 <h1>Geographical Visualizer</h1>
 <h2>Google Maps</h2>
-<p>Each geographical data point should be represented on the map below</p>
+<?php if (empty($geoPoints)): ?>
+    <p>No geographical data was collected</p>
+<?php else: ?>
+    <p>Each geographical data point should be represented on the map below</p>
+    <ul>
+        <?php foreach ($geoPoints as $geoPoint): ?>
+            <li><?php echo $geoPoint->getDescription(); ?></li>
+        <?php endforeach; ?>
+    </ul>
+<?php endif; ?>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>

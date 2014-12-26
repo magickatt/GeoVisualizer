@@ -24,19 +24,35 @@ $application->post('/collector/:collectorName', function ($collectorSlug) use ($
     $collectorRegistry = $collectorRegistryFactory->create($container);
     $collector = $collectorRegistry->getWithSlug($collectorSlug);
 
-    /*
-     * Do something
-     */
-    $parameters = new \Zend\Stdlib\Parameters(array('search' => 'hats'));
+    $parameters = new \Zend\Stdlib\Parameters(array('search' => $application->request()->post('term')));
     $geoPoints = $collector->fetchGeoPoints($parameters);
+
+    $sessionFactory = new \Aura\Session\SessionFactory;
+    $session = $sessionFactory->newInstance($_COOKIE);
+    $segment = $session->getSegment('GeoVisualizer');
+
+    $segment->set('geoPoints', $geoPoints);
 
     $visualizerRegistryFactory = new \GeoVisualizer\Visualizer\RegistryFactory();
     $visualizerRegistry = $visualizerRegistryFactory->create($container);
     echo $application->render('visualizers.php', array('visualizers' => $visualizerRegistry->getAllNames(), 'geoPoints' => $geoPoints));
 });
 
-$application->get('/visualizer/:visualizerName', function ($visualizerSlug) use ($application) {
-    echo $application->render('visualizer/' . (string)$visualizerSlug . '.php');
+$application->get('/visualizer/:visualizerName', function ($visualizerSlug) use ($application, $container) {
+
+    $visualizerRegistryFactory = new \GeoVisualizer\Visualizer\RegistryFactory();
+    $visualizerRegistry = $visualizerRegistryFactory->create($container);
+    $visualizer = $visualizerRegistry->getWithSlug($visualizerSlug);
+
+    $sessionFactory = new \Aura\Session\SessionFactory;
+    $session = $sessionFactory->newInstance($_COOKIE);
+    $segment = $session->getSegment('GeoVisualizer');
+
+    $geoPoints = $segment->get('geoPoints');
+
+    $metadata = $visualizer->consume($geoPoints);
+
+    echo $application->render('visualizer/' . (string)$visualizerSlug . '.php', array('geoPoints' => $geoPoints, 'metadata' => $metadata));
 });
 
 $application->run();
