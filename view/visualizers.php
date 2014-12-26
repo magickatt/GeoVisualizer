@@ -26,7 +26,7 @@
     <p>Select a method to visualize the geographical data previously collected</p>
     <ul>
         <?php foreach ($visualizers as $slug => $visualizerName): ?>
-        <li><a href="/GeoVisualizer/web/visualizer/<?php echo $slug; ?>"><?php echo $visualizerName; ?></a></li>
+        <li><a href="visualizer/<?php echo $slug; ?>"><?php echo $visualizerName; ?></a></li>
         <?php endforeach; ?>
     </ul>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

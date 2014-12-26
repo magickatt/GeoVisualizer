@@ -7,7 +7,6 @@ $application->view->setTemplatesDirectory(__DIR__ . '/../view/');
 
 $builder = new \DI\ContainerBuilder();
 $container = $builder->build();
-//$container->useAutowiring(true);
 
 $application->get('/', function () use ($application, $container) {
     $collectorRegistryFactory = new \GeoVisualizer\Collector\RegistryFactory();
